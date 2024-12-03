@@ -1,7 +1,11 @@
+require "yaml"
+vagrant_root = File.dirname(File.expand_path(__FILE__))
+vagrant_settings = YAML.load_file "#{vagrant_root}/vagrant-settings.yaml"
+
 Vagrant.configure("2") do |config|
-  vm_box = "ubuntu/jammy64"
-  vm_box_version = "20241002.0.0"
-  
+  vm_box = vagrant_settings["boxes"]["vm_box"]
+  vm_box_version = vagrant_settings["boxes"]["vm_box_version"]
+
   config.vm.define "controlplane" do |controlplane|
     controlplane.vm.box = vm_box
     controlplane.vm.box_version = vm_box_version

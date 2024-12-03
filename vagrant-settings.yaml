@@ -1,0 +1,3 @@
+boxes:
+  vm_box: ubuntu/jammy64
+  vm_box_version: 202203.01.0
