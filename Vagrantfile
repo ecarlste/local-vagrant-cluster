@@ -11,13 +11,12 @@ Vagrant.configure("2") do |config|
     controlplane.vm.box_version = vm_box_version
   end
 
-  config.vm.define "node01" do |node01|
-    node01.vm.box = vm_box
-    node01.vm.box_version = vm_box_version
-  end
+  (1..2).each do |i|
+    node_name = "node%02d" % i
 
-  config.vm.define "node02" do |node02|
-    node02.vm.box = vm_box
-    node02.vm.box_version = vm_box_version
+    config.vm.define "#{node_name}" do |node|
+      node.vm.box = vm_box
+      node.vm.box_version = vm_box_version
+    end
   end
 end
