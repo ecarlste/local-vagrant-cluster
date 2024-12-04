@@ -1,3 +1,9 @@
 boxes:
   vm_box: ubuntu/jammy64
   vm_box_version: 20241002.0.0
+  controlplane:
+    cpus: 2
+    memory: 4096
+  workernodes:
+    cpus: 1
+    memory: 2048

@@ -8,6 +8,12 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "controlplane" do |controlplane|
     controlplane.vm.hostname = "controlplane"
+
+    controlplane.vm.provider "virtualbox" do |vb|
+      vb.cpus = vagrant_settings["boxes"]["controlplane"]["cpus"]
+      vb.memory = vagrant_settings["boxes"]["controlplane"]["memory"]
+    end
+
     controlplane.vm.box = vm_box
     controlplane.vm.box_version = vm_box_version
 
@@ -19,6 +25,12 @@ Vagrant.configure("2") do |config|
 
     config.vm.define "#{node_name}" do |node|
       node.vm.hostname = "#{node_name}"
+
+      node.vm.provider "virtualbox" do |vb|
+        vb.cpus = vagrant_settings["boxes"]["workernodes"]["cpus"]
+        vb.memory = vagrant_settings["boxes"]["workernodes"]["memory"]
+      end
+
       node.vm.box = vm_box
       node.vm.box_version = vm_box_version
 
