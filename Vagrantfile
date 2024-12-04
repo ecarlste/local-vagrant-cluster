@@ -21,6 +21,8 @@ Vagrant.configure("2") do |config|
       node.vm.hostname = "#{node_name}"
       node.vm.box = vm_box
       node.vm.box_version = vm_box_version
+
+      node.vm.provision "shell", path: "scripts/common.bash"
     end
   end
 end
