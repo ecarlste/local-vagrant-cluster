@@ -1,5 +1,9 @@
 #!/bin/bash
 
+############################################
+# Install containerd via Docker Engine
+############################################
+
 for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do
   sudo apt-get remove $pkg
 done
@@ -23,3 +27,24 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 
 # Verify that Docker Engine is installed correctly by running the hello-world image.
 sudo docker run hello-world
+
+############################################
+# Install kubeadm
+############################################
+
+# Install GPG
+sudo apt-get update -y
+# apt-transport-https may be a dummy package; if so, you can skip that package
+sudo apt-get install -y apt-transport-https ca-certificates curl gpg
+
+# Add the Kubernetes GPG key
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.31/deb/Release.key \
+  | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+# This overwrites any existing configuration in /etc/apt/sources.list.d/kubernetes.list
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.31/deb/ /' \
+  | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+sudo apt-get update -y
+sudo apt-get install -y kubelet kubeadm kubectl
+sudo apt-mark hold kubelet kubeadm kubectl
