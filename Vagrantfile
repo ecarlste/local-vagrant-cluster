@@ -10,6 +10,8 @@ Vagrant.configure("2") do |config|
     controlplane.vm.hostname = "controlplane"
     controlplane.vm.box = vm_box
     controlplane.vm.box_version = vm_box_version
+
+    controlplane.vm.provision "shell", path: "scripts/common.bash"
   end
 
   (1..2).each do |i|
