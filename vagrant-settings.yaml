@@ -7,3 +7,5 @@ boxes:
   workernodes:
     cpus: 1
     memory: 2048
+network:
+  ip_start: 10.0.0.10
