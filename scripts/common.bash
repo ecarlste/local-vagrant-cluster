@@ -55,4 +55,5 @@ sudo apt-get update -y
 sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 
-alias k='kubectl'
+vagrant_home="/home/vagrant"
+echo "alias k='kubectl'" >> /home/vagrant/.bash_aliases
