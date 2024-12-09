@@ -28,6 +28,11 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 # Verify that Docker Engine is installed correctly by running the hello-world image.
 sudo docker run hello-world
 
+# Configure containerd to use systemd for cgroup management
+containerd config default \
+  | sed 's/SystemdCgroup = false/SystemdCgroup = true/' \
+  | sudo tee /etc/containerd/config.toml
+
 ############################################
 # Install kubeadm
 ############################################
