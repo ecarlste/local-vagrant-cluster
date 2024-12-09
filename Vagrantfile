@@ -52,6 +52,7 @@ Vagrant.configure("2") do |config|
       node.vm.box_version = vm_box_version
 
       node.vm.provision "shell", path: "scripts/common.bash"
+      node.vm.provision "shell", path: "scripts/setup-workernode.bash"
     end
   end
 end

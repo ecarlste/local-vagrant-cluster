@@ -1,3 +1,6 @@
+# Shared vagrant folders
+configs/
+
 # Vagrant stuff
 acceptance_config.yml
 boxes/*
