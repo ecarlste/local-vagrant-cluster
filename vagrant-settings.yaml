@@ -9,3 +9,4 @@ boxes:
     memory: 2048
 network:
   ip_start: 10.0.0.10
+  pod_cidr: 10.244.0.0/16

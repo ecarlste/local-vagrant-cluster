@@ -28,6 +28,12 @@ Vagrant.configure("2") do |config|
     controlplane.vm.box_version = vm_box_version
 
     controlplane.vm.provision "shell", path: "scripts/common.bash"
+    controlplane.vm.provision "shell",
+      env: {
+        "CONTROLPLANE_IP" => vagrant_settings["network"]["ip_start"],
+        "POD_CIDR" => vagrant_settings["network"]["pod_cidr"],
+      },
+      path: "scripts/setup-controlplane.bash"
   end
 
   (1..2).each do |i|
