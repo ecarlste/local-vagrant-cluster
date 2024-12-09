@@ -16,7 +16,7 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 shared_kube_config_path="/vagrant/configs"
 
 if [ -d $shared_kube_config_path ]; then
-  rm -rf $shared_kube_config_path
+  rm -f $shared_kube_config_path/*
 else
   mkdir -p $shared_kube_config_path
 fi
