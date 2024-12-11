@@ -7,4 +7,8 @@ if [[ "$KUBECONFIG" == *"$kubeconfig_path"* ]]; then
 else
     echo "$kubeconfig_path is not in KUBECONFIG, adding it now."
     export KUBECONFIG="$KUBECONFIG:$kubeconfig_path"
+
+    echo ""
+    echo "To use the newly added context, run:"
+    echo "kubectl config use-context kubernetes-admin@kubernetes"
 fi
