@@ -57,3 +57,7 @@ sudo apt-mark hold kubelet kubeadm kubectl
 
 vagrant_home="/home/vagrant"
 echo "alias k='kubectl'" >> /home/vagrant/.bash_aliases
+
+# Enable the br_netfilter module for cluster networking
+echo "br_netfilter" | sudo tee /etc/modules-load.d/br_netfilter.conf
+sudo systemctl restart systemd-modules-load.service
