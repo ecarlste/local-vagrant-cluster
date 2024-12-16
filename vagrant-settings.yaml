@@ -3,10 +3,10 @@ boxes:
   vm_box_version: 20241002.0.0
   controlplane:
     cpus: 2
-    memory: 4096
+    memory: 2048
   workernodes:
     cpus: 1
-    memory: 2048
+    memory: 1024
 network:
   ip_start: 10.0.0.10
   pod_cidr: 10.244.0.0/16
