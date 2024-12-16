@@ -27,8 +27,15 @@ chmod +x $shared_kube_config_path/workernode_join.sh
 
 kubeadm token create --print-join-command > $shared_kube_config_path/workernode_join.sh
 
-# Install Flannel CNI
-kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+# Install Flannel CNI w/ custom iface for Vagrant
+curl -o /vagrant/configs/kube-flannel.yml \
+  https://raw.githubusercontent.com/flannel-io/flannel/refs/tags/v0.26.2/Documentation/kube-flannel.yml
+perl \
+  -i.bak \
+  -0777 \
+  -pe 's/(\s*-\s*\/opt\/bin\/flanneld\s*\n\s*args:\s*)/$1- --iface=enp0s8\n        /' \
+  /vagrant/configs/kube-flannel.yml 
+kubectl apply -f /vagrant/configs/kube-flannel.yml
 
 # Set up kubectl config for the vagrant user
 vagrant_home="/home/vagrant"

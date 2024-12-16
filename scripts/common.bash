@@ -35,12 +35,17 @@ containerd config default \
 sudo systemctl restart containerd
 
 ############################################
+# Disable Swap
+############################################
+sudo swapoff -a
+sudo sed -i '/ swap/d' /etc/fstab
+
+############################################
 # Install kubeadm
 ############################################
 
 # Install GPG
 sudo apt-get update -y
-# apt-transport-https may be a dummy package; if so, you can skip that package
 sudo apt-get install -y apt-transport-https ca-certificates curl gpg
 
 # Add the Kubernetes GPG key
@@ -59,5 +64,19 @@ vagrant_home="/home/vagrant"
 echo "alias k='kubectl'" >> /home/vagrant/.bash_aliases
 
 # Enable the br_netfilter module for cluster networking
-echo "br_netfilter" | sudo tee /etc/modules-load.d/br_netfilter.conf
-sudo systemctl restart systemd-modules-load.service
+cat <<EOF | sudo tee /etc/modules-load.d/br_netfilter.conf
+overlay
+br_netfilter
+EOF
+
+sudo modprobe overlay
+sudo modprobe br_netfilter
+
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward                 = 1
+EOF
+
+# Applying Kernel Settings Without Reboot
+sysctl --system
